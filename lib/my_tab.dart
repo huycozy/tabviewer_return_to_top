@@ -7,8 +7,9 @@ import 'my_box.dart';
 class MyTab extends StatefulWidget {
   final int index;
   final bool isActive;
+  final ScrollController controller;
 
-  const MyTab({Key key, this.index, this.isActive = false}) : super(key: key);
+  const MyTab({Key key, this.index, this.isActive = false, this.controller}) : super(key: key);
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'my tab $index $isActive';
@@ -71,7 +72,7 @@ class _MyTabState extends State<MyTab> with AutomaticKeepAliveClientMixin {
         // automaticKeepAlive stopped keeping extents with primary
         // primary: widget.isActive,
         physics: AlwaysScrollableScrollPhysics(),
-        controller: PrimaryScrollController.of(context),
+        controller: widget.controller,
 
         itemCount: childrenCount + (loading ? 1 : 0),
         itemBuilder: (context, index) => index == childrenCount

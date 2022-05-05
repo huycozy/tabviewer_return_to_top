@@ -16,6 +16,12 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
   TabController ctrl;
   int activeTab;
   GlobalKey key;
+  List<ScrollController> controllers = [
+    ScrollController(),
+    ScrollController(),
+    ScrollController(),
+    ScrollController(),
+  ];
 
   @override
   void initState() {
@@ -65,7 +71,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               return IconButton(
                 icon: Icon(Icons.timer_outlined),
                 onPressed: () {
-                  PrimaryScrollController.of(context).animateTo(0,
+                  // PrimaryScrollController.of(context).animateTo(0,
+                  //     duration: Duration(seconds: 1), curve: Curves.easeInOut);
+                  controllers[activeTab].animateTo(0,
                       duration: Duration(seconds: 1), curve: Curves.easeInOut);
                 },
               );
@@ -81,6 +89,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
               key: ValueKey<int>(i),
               index: i,
               isActive: activeTab == i,
+              controller: controllers[i],
             )
         ],
       ),
